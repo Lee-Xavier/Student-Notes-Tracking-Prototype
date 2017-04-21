@@ -1,0 +1,51 @@
+﻿@*@model IEnumerable<HelpTrackingv1.Controllers.StudentBase>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>
+    <b>ICT Students</b>
+    @Html.ActionLink("Search", "Search", new { studentInfo = " " }, new { @class = "btn btn-primary" })
+</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th style="background-color: gainsboro;">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th style="background-color: gainsboro;">
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th style="background-color: gainsboro;">
+            @Html.DisplayNameFor(model => model.StudentId)
+        </th>
+        <th style="background-color: gainsboro;">
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </th>
+        <th style="background-color: gainsboro;"></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailAddress)
+        </td>
+        <td>         
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |*@
+            @Html.ActionLink("View Details", "Details", new { id=item.Id }) @*|
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+        </td>
+    </tr>
+}
+
+</table>*@

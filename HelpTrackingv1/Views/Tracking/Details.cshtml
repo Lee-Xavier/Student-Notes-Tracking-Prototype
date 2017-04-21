@@ -1,0 +1,78 @@
+﻿@model HelpTrackingv1.Controllers.StudentWithNotes
+
+@{
+    ViewBag.Title = "Looking up...";
+}
+<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-10">
+        <h3><b>Student:</b> @Model.LastName @Model.FirstName, #@Model.StudentId (@Model.EmailAddress)</h3>
+        @*<p>
+                @Html.ActionLink("Create Note", "Create", new { id = Model.Id }, new { @class = "btn btn-success" })
+            </p>*@
+    </div>
+    <div class="col-md-2">
+        <div style="margin-top: 18px;">
+            <a href="~/Tracking/Search?studentInfo=%20" class="btn btn-primary">Back to List</a>
+        </div>
+    </div>
+</div>
+<div>
+    <div class="panel-group">
+        <div class="panel" style="background-color: darkgray;">
+            <div class="panel-heading">
+                <h4 class="panel-title" style="height: 25px;">
+                    <a data-toggle="collapse" href="#collapse1">
+                        <p style="font-size: 20px; color:white; text-align:center"><b>Create Note <i class="glyphicon glyphicon-chevron-down"></i></b></p>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <ul class="list-group">
+                    <li class="list-group-item">
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()                      
+                                <div class="form-group">
+                                    <textarea type="text" name="Content" class="form-control html"></textarea>                              
+                                    <script>
+                                        CKEDITOR.replace('Content');
+                                    </script>
+                                    @Html.ValidationMessage("Content", "", new { @class = "text-danger" })
+                                </div>
+                                <input name="studentIdInt" value="@Model.Id" type="hidden" />
+                        
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="btn" />
+                            </div>
+                        }
+                    </li>
+                </ul>
+                @*<div class="panel-footer"><b>What would you like to view?</b></div>*@
+            </div>
+        </div>
+    </div>
+
+    <h3><b>Notes:</b></h3>
+
+    <table class="table table-bordered">
+        @if (Model.Notes.Count() == 0)
+        {
+            <tr><td style="background-color:lightgreen; height: 43px; font-size:medium; color: white;"><b>(Empty!)</b></td></tr>
+        }
+        @foreach (var item in Model.Notes)
+        {
+            <tr>
+                <td>
+                    <b> @Html.ActionLink(@String.Format("{0:MMMM dd, yyyy (hh:mm tt)}", @item.DateCreated), "ViewNote", new { id = item.Id })</b>
+                </td>
+                <td>
+                    <div style="background-color: lightyellow; height: 90px; padding: 5px;">@Html.Raw(item.Content)</div>
+                    <hr />
+                    <p><b>Authored by: </b>@item.Author</p>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

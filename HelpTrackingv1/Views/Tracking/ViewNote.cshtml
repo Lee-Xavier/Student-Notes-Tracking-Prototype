@@ -1,0 +1,17 @@
+﻿@model HelpTrackingv1.Controllers.NoteWithStudent
+
+@{
+    ViewBag.Title = "View Note";
+}
+
+<h2>@Model.Student.FirstName's Note - @String.Format("{0:MMMM dd, yyyy}", @Model.DateCreated)</h2>
+<hr />
+<div style="background-color: lightyellow; height: 90px; padding: 5px;">@Html.Raw(Model.Content)</div>
+<hr />
+<p><b>Authored by: </b>@Html.DisplayFor(model => model.Author) </p>
+
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
+    @*@Html.ActionLink("Back to List", "Index")*@
+    <a href="~/Tracking/Search?studentInfo=%20" class="btn btn-primary">Back to List</a>
+</p>
